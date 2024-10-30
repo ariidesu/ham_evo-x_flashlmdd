@@ -1,0 +1,62 @@
+title: "Evolution X (flashlmdd) (udc branch)"
+version: "0.0.1"
+
+args:
+  - id: github_token
+    prompt: "Github Repo Token"
+    required: false
+    type: secret
+
+  - id: github_user
+    prompt: "Github Username"
+    required: false
+    type: value
+
+  - id: github_repo
+    prompt: "Github Repo"
+    required: false
+    type: value
+
+build:
+  - name: Setting up environment
+    run: |
+      apt update
+      apt install -y git curl ccache
+      git clone https://github.com/akhilnarang/scripts; cd scripts; sudo bash setup/android_build_env.sh
+
+  - name: Set python3 as default
+    run: |
+      apt install -y -qq python-is-python3
+
+  - name: Create directory
+    run: |
+      cd /ham-build
+      mkdir -p android
+
+  - name: Initialize repo
+    run: |
+      cd /ham-build/android
+      repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs < /dev/null
+      repo sync -j20 -c < /dev/null
+      mkdir -p .repo/local_manifests
+
+  - name: Add device source
+    run: cp /ham-recipe/source/flashlmdd.xml /ham-build/android/.repo/local_manifests
+
+  - name: Sync repo
+    run: |
+      cd /ham-build/android
+      repo sync -c -j20 --force-sync --no-clone-bundle --no-tags < /dev/null
+
+  - name: Make keys
+    run: |
+      cd /ham-build/android
+      git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template /ham-build/android/vendor/evolution-priv/keys
+      cd /ham-build/android/vendor/evolution-priv/keys
+      ./keys.sh
+
+  - name: Cook ROM
+    run: /ham-recipe/scripts/make.sh
+
+post_build:
+  - /ham-recipe/scripts/upload.sh
