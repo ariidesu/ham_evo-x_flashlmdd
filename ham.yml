@@ -37,11 +37,10 @@ build:
     run: |
       cd /ham-build/android
       repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs < /dev/null
-      repo sync -j20 -c < /dev/null
       mkdir -p .repo/local_manifests
 
   - name: Add device source
-    run: cp /ham-recipe/source/flashlmdd.xml /ham-build/android/.repo/local_manifests
+    run: cp /ham-recipe/sources/flashlmdd.xml /ham-build/android/.repo/local_manifests
 
   - name: Sync repo
     run: |
