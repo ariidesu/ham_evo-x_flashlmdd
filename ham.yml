@@ -23,6 +23,9 @@ build:
       apt update
       apt install -y git curl ccache
       git clone https://github.com/akhilnarang/scripts; cd scripts; sudo bash setup/android_build_env.sh
+      chmod a+x /ham-recipe/scripts/sign.sh
+      chmod a+x /ham-recipe/scripts/make.sh
+      chmod a+x /ham-recipe/scripts/upload.sh
 
   - name: Set python3 as default
     run: |
@@ -36,7 +39,7 @@ build:
   - name: Initialize repo
     run: |
       cd /ham-build/android
-      repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs < /dev/null
+      repo init -u https://github.com/Evolution-X/manifest -b udc --git-lfs
       mkdir -p .repo/local_manifests
 
   - name: Add device source
@@ -45,7 +48,7 @@ build:
   - name: Sync repo
     run: |
       cd /ham-build/android
-      repo sync -c -j20 --force-sync --no-clone-bundle --no-tags < /dev/null
+      repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 
   - name: Make keys
     run: /ham-recipe/scripts/sign.sh
