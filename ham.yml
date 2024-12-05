@@ -55,13 +55,13 @@ build:
       git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
       cd vendor/evolution-priv/keys
       chmod a+x keys.sh
-      ./keys.sh < /dev/null
+      ./keys.sh
 
   - name: Cook ROM
     run: |
       chmod a+x /ham-recipe/scripts/make.sh
-      /ham-recipe/scripts/make.sh < /dev/null
+      /ham-recipe/scripts/make.sh
 
 post_build:
   - chmod a+x /ham-recipe/scripts/upload.sh
-  - /ham-recipe/scripts/upload.sh < /dev/null
+  - /ham-recipe/scripts/upload.sh
