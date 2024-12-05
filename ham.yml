@@ -48,20 +48,10 @@ build:
       repo sync -c -j20 --force-sync --no-clone-bundle --no-tags < /dev/null
 
   - name: Make keys
-    run: |
-      cd /ham-build/android
-      . build/envsetup.sh
-      croot
-      git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
-      cd vendor/evolution-priv/keys
-      chmod a+x keys.sh
-      ./keys.sh
+    run: /ham-recipe/scripts/sign.sh
 
   - name: Cook ROM
-    run: |
-      chmod a+x /ham-recipe/scripts/make.sh
-      /ham-recipe/scripts/make.sh
+    run: /ham-recipe/scripts/make.sh
 
 post_build:
-  - chmod a+x /ham-recipe/scripts/upload.sh
   - /ham-recipe/scripts/upload.sh

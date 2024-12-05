@@ -1,5 +1,4 @@
-#!/usr/bin/bash -i
-#
+#!/usr/bin/bash
 set -e
 
 if [[ -z "$GITHUB_TOKEN" ]]; then

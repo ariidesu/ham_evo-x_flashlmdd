@@ -1,8 +1,9 @@
+#!/usr/bin/bash
 set -e
 DEVICE=flashlmdd
 
 cd /ham-build/android
-. build/envsetup.sh
+source build/envsetup.sh
 croot
 
 export TARGET_USE_PICO_GAPPS=true
