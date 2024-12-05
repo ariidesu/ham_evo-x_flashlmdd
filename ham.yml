@@ -50,9 +50,11 @@ build:
   - name: Make keys
     run: |
       cd /ham-build/android
-      git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template /ham-build/android/vendor/evolution-priv/keys
-      cd /ham-build/android/vendor/evolution-priv/keys
-      ./keys.sh
+      croot
+      git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
+      cd vendor/evolution-priv/keys
+      chmod a+x keys.sh
+      ./keys.sh < /dev/null
 
   - name: Cook ROM
     run: /ham-recipe/scripts/make.sh
