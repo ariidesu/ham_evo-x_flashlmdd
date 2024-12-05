@@ -57,7 +57,10 @@ build:
       ./keys.sh < /dev/null
 
   - name: Cook ROM
-    run: /ham-recipe/scripts/make.sh
+    run: |
+      chmod a+x /ham-recipe/scripts/make.sh
+      /ham-recipe/scripts/make.sh < /dev/null
 
 post_build:
-  - /ham-recipe/scripts/upload.sh
+  - chmod a+x /ham-recipe/scripts/upload.sh
+  - /ham-recipe/scripts/upload.sh < /dev/null
