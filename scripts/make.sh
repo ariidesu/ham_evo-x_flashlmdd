@@ -2,8 +2,8 @@ set -e
 DEVICE=flashlmdd
 
 cd /ham-build/android
-croot
 . build/envsetup.sh
+croot
 
 export TARGET_USE_PICO_GAPPS=true
 lunch lineage_$DEVICE-userdebug

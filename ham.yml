@@ -50,6 +50,7 @@ build:
   - name: Make keys
     run: |
       cd /ham-build/android
+      . build/envsetup.sh
       croot
       git clone https://github.com/Evolution-X/vendor_evolution-priv_keys-template vendor/evolution-priv/keys
       cd vendor/evolution-priv/keys
